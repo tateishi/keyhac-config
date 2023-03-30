@@ -1,0 +1,1 @@
+copy config.py C:\Users\tatei\Apps\keyhac
