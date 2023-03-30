@@ -8,13 +8,29 @@ EDITOR = "notepad.exe"
 FONT = "HackGenNerd Console"
 FONT_SIZE = 16
 
+modifiers = [
+    (235, "User0", "U0"),
+    (236, "User1", "U1"),
+    (237, "User2", "U2"),
+    (238, "User3", "U3"),
+    (239, "User4", "U4"),
+]
 
-def set_keys(keymap, map, keymap_dict, modifier_key, id, user_key, one_shot=True):
-    keymap.replaceKey(modifier_key, id)
-    keymap.defineModifier(id, user_key)
+
+def make_keymap(map, id, modifiers=modifiers):
+    number, name, prefix = modifiers[id]
+    d = { f"{prefix}-{k}": v for k, v in map.items() }
+    return d
+
+
+def set_keys(keymap, map, keymap_dict, modifier_key, id, one_shot=True):
+    number, name, prefix = modifiers[id]
+    keymap.replaceKey(modifier_key, number)
+    keymap.defineModifier(number, name)
+    keymap_dict = make_keymap(keymap_dict, id)
 
     if one_shot:
-        map[f"O-({id})"] = modifier_key
+        map[f"O-({number})"] = modifier_key
 
     for k, v in keymap_dict.items():
         map[k] = v
@@ -22,84 +38,84 @@ def set_keys(keymap, map, keymap_dict, modifier_key, id, user_key, one_shot=True
 
 def muhenkan_map(keymap):
     keymap_dict = {
-        "U0-h": "Left",
-        "U0-j": "Down",
-        "U0-k": "Up",
-        "U0-l": "Right",
+        "h": "Left",
+        "j": "Down",
+        "k": "Up",
+        "l": "Right",
 
-        "U0-C-h": "Home",
-        "U0-C-j": "PageDown",
-        "U0-C-k": "PageUp",
-        "U0-C-l": "End",
+        "C-h": "Home",
+        "C-j": "PageDown",
+        "C-k": "PageUp",
+        "C-l": "End",
 
-        "U0-S-h": "S-Left",
-        "U0-S-j": "S-Down",
-        "U0-S-k": "S-Up",
-        "U0-S-l": "S-Right",
+        "S-h": "S-Left",
+        "S-j": "S-Down",
+        "S-k": "S-Up",
+        "S-l": "S-Right",
 
-        "U0-C-S-h": "S-Home",
-        "U0-C-S-j": "S-PageDown",
-        "U0-C-S-k": "S-PageUp",
-        "U0-C-S-l": "S-End",
+        "C-S-h": "S-Home",
+        "C-S-j": "S-PageDown",
+        "C-S-k": "S-PageUp",
+        "C-S-l": "S-End",
 
-        "U0-Enter": "Esc",
-        "U0-Space": "Back",
+        "Enter": "Esc",
+        "Space": "Back",
 
-        "U0-b": "(1)",   # MOUSE_LBUTTON
-        "U0-n": "(166)", # BROWSER_BACKWARD
-        "U0-m": "(167)", # BROWSER_FORWARD
+        "b": "(1)",   # MOUSE_LBUTTON
+        "n": "(166)", # BROWSER_BACKWARD
+        "m": "(167)", # BROWSER_FORWARD
     }
 
     map = keymap.defineWindowKeymap()
-    set_keys(keymap, map, keymap_dict, "(29)", 235, "User0")
+    set_keys(keymap, map, keymap_dict, "(29)", 0)
 
 
 def space_map(keymap):
     keymap_dict = {
-        "U0-h": "Left",
-        "U0-j": "Down",
-        "U0-k": "Up",
-        "U0-l": "Right",
+        "h": "Left",
+        "j": "Down",
+        "k": "Up",
+        "l": "Right",
 
-        "U0-C-h": "Home",
-        "U0-C-j": "PageDown",
-        "U0-C-k": "PageUp",
-        "U0-C-l": "End",
+        "C-h": "Home",
+        "C-j": "PageDown",
+        "C-k": "PageUp",
+        "C-l": "End",
 
-        "U0-S-h": "S-Left",
-        "U0-S-j": "S-Down",
-        "U0-S-k": "S-Up",
-        "U0-S-l": "S-Right",
+        "S-h": "S-Left",
+        "S-j": "S-Down",
+        "S-k": "S-Up",
+        "S-l": "S-Right",
 
-        "U0-C-S-h": "S-Home",
-        "U0-C-S-j": "S-PageDown",
-        "U0-C-S-k": "S-PageUp",
-        "U0-C-S-l": "S-End",
+        "C-S-h": "S-Home",
+        "C-S-j": "S-PageDown",
+        "C-S-k": "S-PageUp",
+        "C-S-l": "S-End",
 
-        "U0-Enter": "Esc",
-        "U0-Period": "Space",
-        "U0-Comma": "Back",
+        "Enter": "Esc",
+        "Period": "Space",
+        "Comma": "Back",
+ 
+        "s": "s-7",  # SINGLE QUOTE
+        "d": "s-2",  # DOUBLE QUOTE
+        "a": "s-BackQuote",  # BACK QUOTE
 
-        "U0-s": "s-7",  # SINGLE QUOTE
-        "U0-d": "s-2",  # DOUBLE QUOTE
-        "U0-a": "BackQuote",  # BACK QUOTE
+        "i":   "s-8",  # LEFT PAREN
+        "o":   "s-9",  # RIGHT PAREN
+        "s-i": "s-Comma",  # LEFT ANLE BRACKET
+        "s-o": "s-Period",  # RIGHT ANGLE BRACKET
+        "p":      "OpenBracket",  # LEFT BRACKET
+        "Atmark": "CloseBracket",  # RIGHT BRACKET
+        "s-p":      "s-OpenBracket",  # LEFT CURLY BRACKET
+        "s-Atmark": "s-CloseBracket",  # RIGHT CURLY BRACKET
 
-        "U0-i":   "s-8",  # LEFT PAREN
-        "U0-o":   "s-9",  # RIGHT PAREN
-        "U0-s-i": "s-Comma",  # LEFT ANGLE BRACKET
-        "U0-s-o": "s-Period",  # RIGHT ANGLE BRACKET
-        "U0-p":      "OpenBracket",  # LEFT BRACKET
-        "U0-Atmark": "CloseBracket",  # RIGHT BRACKET
-        "U0-s-p":      "s-OpenBracket",  # LEFT CURLY BRACKET
-        "U0-s-Atmark": "s-CloseBracket",  # RIGHT CURLY BRACKET
-
-        "U0-b": "(1)",   # MOUSE_LBUTTON
-        "U0-n": "(166)", # BROWSER_BACKWARD
-        "U0-m": "(167)", # BROWSER_FORWARD
+        "b": "(1)",   # MOUSE_LBUTTON
+        "n": "(166)", # BROWSER_BACKWARD
+        "m": "(167)", # BROWSER_FORWARD
     }
 
     map = keymap.defineWindowKeymap()
-    set_keys(keymap, map, keymap_dict, "space", 235, "User0")
+    set_keys(keymap, map, keymap_dict, "space", 0)
 
 
 def set_globalmap(keymap):
