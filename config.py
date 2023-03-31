@@ -43,7 +43,22 @@ def muhenkan_map(keymap):
         "U0-C-S-l": "S-End",
 
         "U0-Enter": "Esc",
-        "U0-Space": "Back",
+        "U0-Period": "Space",
+        "U0-Comma": "Back",
+
+        "U0-s": "s-7",  # SINGLE QUOTE
+        "U0-d": "s-2",  # DOUBLE QUOTE
+
+        "U0-i":   "s-8",  # LEFT PAREN
+        "U0-o":   "s-9",  # RIGHT PAREN
+        "U0-s-i": "s-Comma",  # LEFT ANGLE BRACKET
+        "U0-s-o": "s-Period",  # RIGHT ANGLE BRACKET
+        "U0-p":      "OpenBracket",  # LEFT BRACKET
+        "U0-Atmark": "CloseBracket",  # RIGHT BRACKET
+        "U0-s-p":      "s-OpenBracket",  # LEFT CURLY BRACKET
+        "U0-s-Atmark": "s-CloseBracket",  # RIGHT CURLY BRACKET
+
+        "U0-slash": "Apps", # Application Key
 
         "U0-b": "(1)",   # MOUSE_LBUTTON
         "U0-n": "(166)", # BROWSER_BACKWARD
@@ -82,7 +97,6 @@ def space_map(keymap):
 
         "U0-s": "s-7",  # SINGLE QUOTE
         "U0-d": "s-2",  # DOUBLE QUOTE
-        "U0-a": "BackQuote",  # BACK QUOTE
 
         "U0-i":   "s-8",  # LEFT PAREN
         "U0-o":   "s-9",  # RIGHT PAREN
@@ -92,6 +106,8 @@ def space_map(keymap):
         "U0-Atmark": "CloseBracket",  # RIGHT BRACKET
         "U0-s-p":      "s-OpenBracket",  # LEFT CURLY BRACKET
         "U0-s-Atmark": "s-CloseBracket",  # RIGHT CURLY BRACKET
+
+        "U0-slash": "Apps", # Application Key
 
         "U0-b": "(1)",   # MOUSE_LBUTTON
         "U0-n": "(166)", # BROWSER_BACKWARD
@@ -103,8 +119,8 @@ def space_map(keymap):
 
 
 def set_globalmap(keymap):
-    space_map(keymap)
-#    muhenkan_map(keymap)
+#    space_map(keymap)
+    muhenkan_map(keymap)
 
 
 def configure(keymap):
