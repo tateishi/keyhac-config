@@ -1,1 +1,1 @@
-copy config.py C:\Users\tatei\Apps\keyhac
+copy config.py %homedrive%%homepath%\Apps\keyhac
