@@ -118,9 +118,25 @@ def space_map(keymap):
     set_keys(keymap, map, keymap_dict, "space", 235, "User0")
 
 
+def ro_map(keymap):
+    keymap_dict = {
+        "U1-h": "Left",
+        "U1-j": "Down",
+        "U1-k": "Up",
+        "U1-l": "Right",
+
+        "s-(236)": "_",
+    }
+
+    map = keymap.defineWindowKeymap()
+    set_keys(keymap, map, keymap_dict, "backslash", 236, "User1")
+
+
+
 def set_globalmap(keymap):
 #    space_map(keymap)
     muhenkan_map(keymap)
+    ro_map(keymap)
 
 
 def configure(keymap):
