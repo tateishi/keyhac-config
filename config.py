@@ -1,12 +1,48 @@
 ﻿#from pathlib import Path
 
-#import pyauto
+import pyauto
 #from keyhac import *
 
+# 参考
+# https://zenn.dev/awtnb/books/adf6c5162a9f08/viewer/31ad34
 
 EDITOR = "notepad.exe"
 FONT = "HackGenNerd Console"
 FONT_SIZE = 16
+
+
+def send_keys(keymap, *keys):
+    keymap.beginInput()
+    for key in keys:
+        keymap.setInput_FromString(str(key))
+    keymap.endInput()
+    keymap._fixFunnyModifierState()
+
+
+def send_string(keymap, s):
+    keymap.beginInput()
+    keymap.setInput_Modifier(0)
+    for c in s:
+        keymap.input_seq.append(pyauto.Char(c))
+    keymap.endInput()
+
+
+def send_input(keymap, sequence, sleep=0.01):
+    import time
+    for elem in sequence:
+        time.sleep(sleep)
+        try:
+            send_keys(keymap, elem)
+        except:
+            send_string(keymap, elem)
+
+
+def send_date_fmt(keymap, fmt):
+    def _send():
+        from datetime import datetime
+        date_str = datetime.today().strftime(fmt)
+        send_input(keymap, date_str, 0)
+    return _send
 
 
 def set_keys(keymap, map, keymap_dict, modifier_key, id, user_key, one_shot=True):
@@ -67,6 +103,10 @@ def muhenkan_map(keymap):
 
     map = keymap.defineWindowKeymap()
     set_keys(keymap, map, keymap_dict, "(29)", 235, "User0")
+
+    map["U0-Semicolon"] = keymap.defineMultiStrokeKeymap("Date format: 0=Ymd,1=Y/m/d")
+    map["U0-Semicolon"]["0"] = send_date_fmt(keymap, "%Y%m%d")
+    map["U0-Semicolon"]["1"] = send_date_fmt(keymap, "%Y/%m/%d")
 
 
 def space_map(keymap):
