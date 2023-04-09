@@ -1,1 +1,3 @@
-copy config.py %homedrive%%homepath%\Apps\keyhac
+@echo off
+
+copy config.py %LocalAppData%\MyApp\keyhac
